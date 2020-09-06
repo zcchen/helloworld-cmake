@@ -1,0 +1,3 @@
+INCLUDE(CTest)
+ENABLE_TESTING()
+

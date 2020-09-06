@@ -1,0 +1,30 @@
+# The build tmp files
+*
+
+# This gitignore file
+!.gitignore
+
+# The essential debian packing file
+!control
+!rules
+!changelog
+!copyright
+!source/
+!source/format
+
+# The optional debian packing file
+!compat
+!source/*
+
+# The control file for packing
+!install
+!*.install
+!preinst
+!*.preinst
+!postinst
+!*.postinst
+!prerm
+!*.prerm
+!postrm
+!*.postrm
+

@@ -1,0 +1,29 @@
+Source: helloworld
+Priority: optional
+Maintainer: Bill CHEN <Bill.Chen.fs.cn@outlook.com>
+Build-Depends: cmake, debhelper (>=11~)
+Standards-Version: 4.0.0
+Section: libs
+
+Package: helloworld
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libhelloworld0,
+Description: The helloworld program built by CMake
+ Helloworld helloworld program built by CMake.
+ And it shows how to pack into the debian package.
+
+Package: libhelloworld0
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: The helloworld library built by CMake
+ The libhelloworld library built by CMake.
+ And it shows how to pack into the debian package.
+
+Package: libhelloworld0-dev
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+Description: The helloworld library developing files
+ The header files to use the libhelloworld library for CMake.
+ And it shows how to pack into the debian package.
+

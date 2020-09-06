@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+DH_VERBOSE = 1
+
+DEB_HOST_MULTIARCH = $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+DESTDIR = $(CURDIR)/debian/tmp/
+export LD_LIBRARY_PATH += :$(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)
+
+%:
+	dh $@ --builddirectory=build
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--buildsystem=cmake \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+		-DCMAKE_LIBRARY_ARCHITECTURE="$(DEB_HOST_MULTIARCH)"
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+ifeq ($(DEB_HOST_ARCH),mipsel)
+	true # Don't run the tests at all
+else
+	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
+endif
+endif
+
+override_dh_auto_install:
+	dh_auto_install --destdir=$(DESTDIR)
+
+override_dh_missing:
+	dh_missing --list-missing
+
+.PHONY: \
+	override_dh_auto_configure
+	override_dh_auto_test \
+	override_dh_auto_install \
+	override_dh_missing

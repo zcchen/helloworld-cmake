@@ -1,0 +1,4 @@
+install(DIRECTORY ./
+        DESTINATION include/
+        FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+        )
