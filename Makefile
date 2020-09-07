@@ -5,7 +5,6 @@ BUILDDIR = build
 MAKEFLAGS  += --no-print-directory
 
 .PHONY: all cleanall docker
-.SECONDEXPANSION: %
 
 all: $(BUILDDIR)/Makefile
 	make -C $(BUILDDIR) $@
