@@ -11,8 +11,9 @@ RUN apt update \
 
 COPY ./ /src
 RUN cd /src \
+    && rm -rf build \
     && mkdir build && cd build \
-    && cmake .. -DCMAKE_INSTALL_PREFIX=/build \
+    && cmake .. -DCMAKE_INSTALL_PREFIX=/fakeinstall \
     && make \
     && make install \
     && rm -rf /src || rm -rf /src
@@ -20,7 +21,7 @@ RUN cd /src \
 
 FROM debian:buster
 LABEL version="0.0.1" maintainer="zcchen <Bill.CHEN.fs.cn@outlook.com>"
-COPY --from=0 /build /usr
+COPY --from=0 /fakeinstall /usr
 RUN ldconfig
 CMD ["sh", "-c", "helloworld"]
 
