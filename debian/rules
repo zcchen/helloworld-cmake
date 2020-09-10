@@ -2,20 +2,25 @@
 # -*- makefile -*-
 
 DH_VERBOSE = 1
+MAKEFLAGS += -j4
 
 DEB_HOST_MULTIARCH = $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 DESTDIR = $(CURDIR)/debian/tmp/
 export LD_LIBRARY_PATH += :$(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)
 
+THE_CMAKE_PARAMS += :-DCMAKE_BUILD_TYPE=RelWithDebInfo
+THE_CMAKE_PARAMS += :-DCMAKE_LIBRARY_ARCHITECTURE="$(DEB_HOST_MULTIARCH)"
+
+
 %:
-	dh $@ --builddirectory=build
+	dh $@ --builddirectory=build --parallel
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
 		--buildsystem=cmake \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DCMAKE_LIBRARY_ARCHITECTURE="$(DEB_HOST_MULTIARCH)"
+		$(THE_CMAKE_PARAMS)
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
@@ -33,7 +38,7 @@ override_dh_missing:
 	dh_missing --list-missing
 
 .PHONY: \
-	override_dh_auto_configure
+	override_dh_auto_configure \
 	override_dh_auto_test \
 	override_dh_auto_install \
 	override_dh_missing

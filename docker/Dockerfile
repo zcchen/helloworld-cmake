@@ -7,7 +7,7 @@ RUN sed -i /etc/apt/sources.list -e "s:http[s]\{0,1\}\:\/\/[a-zA-Z0-9.]*:${APT_S
 RUN apt update \
     && apt install -y --no-install-recommends \
         g++ build-essential cmake \
-    && apt clean
+    && rm -rf /var/cache/apt/archives
 
 COPY ./ /src
 RUN cd /src \
