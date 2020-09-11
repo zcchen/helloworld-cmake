@@ -1,8 +1,8 @@
 FROM debian:buster AS buildimage
 LABEL autodelete="true" version="0.0.1" maintainer="zcchen <Bill.CHEN.fs.cn@outlook.com>"
 
-ARG APT_SOURCE="http\://mirrors.aliyun.com/"
-RUN sed -i /etc/apt/sources.list -e "s:http[s]\{0,1\}\:\/\/[a-zA-Z0-9.]*:${APT_SOURCE}:g"
+ARG APT_SOURCE="http://mirrors.aliyun.com/"
+RUN sed -i /etc/apt/sources.list -e "s#http[s]\{0,1\}\:\/\/[a-zA-Z0-9.]*#${APT_SOURCE}:g"
 
 RUN apt update \
     && apt install -y --no-install-recommends \
