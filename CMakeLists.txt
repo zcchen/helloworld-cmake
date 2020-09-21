@@ -4,13 +4,13 @@ cmake_minimum_required(VERSION 3.7)
 SET(CMAKE_C_COMPILER "gcc")
 SET(CMAKE_C_STANDARD 99)
 SET(CMAKE_C_FLAGS "-Wall")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread -ldl -std=c++14 -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 set(CMAKE_C_FLAGS_DEBUG  "-g")
 
 SET(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_FLAGS "-Wall -ldl")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -ldl -std=c++14 -fPIC ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG  "-g")
 #######################################################################
 

@@ -23,7 +23,7 @@ RUN cd /src \
 
 FROM debian:buster
 LABEL version="0.0.1" maintainer="zcchen <Bill.CHEN.fs.cn@outlook.com>"
-COPY --from=0 /fakeinstall /usr
+COPY --from=buildimage /fakeinstall /usr
 RUN ldconfig
 CMD ["sh", "-c", "helloworld"]
 
